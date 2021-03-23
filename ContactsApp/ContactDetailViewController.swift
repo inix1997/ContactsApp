@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ContactDetailViewController.swift
 //  ContactsApp
 //
 //  Created by Ignacio Segui on 23/03/2021.
@@ -7,13 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ContactDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
     }
 
-
 }
-
