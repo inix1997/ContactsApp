@@ -12,6 +12,7 @@
 		4FD429A5260CDBBB00CF4575 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD429A4260CDBBB00CF4575 /* UIViewController+Alert.swift */; };
 		4FD429AF260CDC3D00CF4575 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD429AE260CDC3D00CF4575 /* Constants.swift */; };
 		4FD429B2260CDE8C00CF4575 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD429B1260CDE8C00CF4575 /* TableViewCell.swift */; };
+		4FD429B5260D05C400CF4575 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD429B4260D05C400CF4575 /* DetailTableViewCell.swift */; };
 		4FD5B492260A50730026175F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5B491260A50730026175F /* AppDelegate.swift */; };
 		4FD5B494260A50740026175F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5B493260A50740026175F /* SceneDelegate.swift */; };
 		4FD5B496260A50740026175F /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5B495260A50740026175F /* ContactViewController.swift */; };
@@ -26,6 +27,7 @@
 		4FD429A4260CDBBB00CF4575 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		4FD429AE260CDC3D00CF4575 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4FD429B1260CDE8C00CF4575 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		4FD429B4260D05C400CF4575 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		4FD5B48E260A50730026175F /* ContactsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD5B491260A50730026175F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FD5B493260A50740026175F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				4FD5B497260A50740026175F /* Main.storyboard */,
 				4FD429A4260CDBBB00CF4575 /* UIViewController+Alert.swift */,
 				4FD429B1260CDE8C00CF4575 /* TableViewCell.swift */,
+				4FD429B4260D05C400CF4575 /* DetailTableViewCell.swift */,
 			);
 			path = "View Layer";
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD429B5260D05C400CF4575 /* DetailTableViewCell.swift in Sources */,
 				4FD5B496260A50740026175F /* ContactViewController.swift in Sources */,
 				4FD429B2260CDE8C00CF4575 /* TableViewCell.swift in Sources */,
 				4FD5B492260A50730026175F /* AppDelegate.swift in Sources */,
