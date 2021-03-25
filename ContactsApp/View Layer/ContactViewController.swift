@@ -86,6 +86,7 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.userImage?.image = UIImage(named: "UserSmall.png")
             }
+            cell.favouriteButton.isHidden = false
         } else if indexPath.section == 1 {
             let data = sortedResultsArray[indexPath.row]
             cell.nameLabel.text = data.name
