@@ -26,7 +26,6 @@ class ContactViewController: UIViewController {
         
     }
     
-    
     func getData() {
         let finalString = Constants.kSearchContactsApiUrl
         showLoading()
@@ -76,7 +75,7 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.userImage.sd_setImage(with: imageURL, completed: nil)
                 cell.userImage.contentMode = .scaleAspectFit
             } else {
-                cell.userImage?.image = UIImage(named: "User Icon Small.png")
+                cell.userImage?.image = UIImage(named: "UserSmall.png")
             }
         } else if indexPath.section == 1 {
             let data = resultsArray[indexPath.row]
@@ -89,7 +88,7 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.userImage.sd_setImage(with: imageURL, completed: nil)
                 cell.userImage.contentMode = .scaleAspectFit
             } else {
-                cell.userImage?.image = UIImage(named: "User Icon Small.png")
+                cell.userImage?.image = UIImage(named: "UserSmall.png")
             }
             cell.favouriteButton.isHidden = true
         }
@@ -113,12 +112,14 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let item = favouritesResultsArray[indexPath.row]
-            let viewController = ContactDetailViewController(detail: item)
-            self.navigationController?.pushViewController(viewController, animated: true)
+            let vc = storyboard?.instantiateViewController(withIdentifier: "DetailContact") as? ContactDetailViewController
+            vc?.contact = item
+            self.navigationController?.pushViewController(vc!, animated: true)
         } else if indexPath.section == 1 {
             let item = resultsArray[indexPath.row]
-            let viewController = ContactDetailViewController(detail: item)
-            self.navigationController?.pushViewController(viewController, animated: true)
+            let vc = storyboard?.instantiateViewController(withIdentifier: "DetailContact") as? ContactDetailViewController
+            vc?.contact = item
+            self.navigationController?.pushViewController(vc!, animated: true)
         }
     }
     
