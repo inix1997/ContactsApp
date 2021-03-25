@@ -126,7 +126,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="ilR-sV-TUz"/>
-                                            <constraint firstAttribute="width" constant="128" id="kuJ-iD-PYk"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cHH-fb-06p">
