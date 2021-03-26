@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28B226346B00C2FE4AD3E877 /* Pods_ContactsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA7E4A0CA30006869801B02 /* Pods_ContactsApp.framework */; };
+		4F9E4560260E2671005E4EB1 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E455F260E2671005E4EB1 /* UserData.swift */; };
 		4FD42984260CD88C00CF4575 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD42983260CD88C00CF4575 /* ContactModel.swift */; };
 		4FD429A5260CDBBB00CF4575 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD429A4260CDBBB00CF4575 /* UIViewController+Alert.swift */; };
 		4FD429AF260CDC3D00CF4575 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD429AE260CDC3D00CF4575 /* Constants.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F9E455F260E2671005E4EB1 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4FD42983260CD88C00CF4575 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		4FD429A4260CDBBB00CF4575 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		4FD429AE260CDC3D00CF4575 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				4FD42983260CD88C00CF4575 /* ContactModel.swift */,
+				4F9E455F260E2671005E4EB1 /* UserData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -107,12 +110,12 @@
 			children = (
 				4FD42987260CD89100CF4575 /* View Layer */,
 				4FD42982260CD87E00CF4575 /* Model */,
+				4FD429AE260CDC3D00CF4575 /* Constants.swift */,
 				4FD5B491260A50730026175F /* AppDelegate.swift */,
 				4FD5B493260A50740026175F /* SceneDelegate.swift */,
 				4FD5B49A260A50750026175F /* Assets.xcassets */,
 				4FD5B49C260A50750026175F /* LaunchScreen.storyboard */,
 				4FD5B49F260A50750026175F /* Info.plist */,
-				4FD429AE260CDC3D00CF4575 /* Constants.swift */,
 			);
 			path = ContactsApp;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				4FD429A5260CDBBB00CF4575 /* UIViewController+Alert.swift in Sources */,
 				4FD429AF260CDC3D00CF4575 /* Constants.swift in Sources */,
 				4FD42984260CD88C00CF4575 /* ContactModel.swift in Sources */,
+				4F9E4560260E2671005E4EB1 /* UserData.swift in Sources */,
 				4FD5B494260A50740026175F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

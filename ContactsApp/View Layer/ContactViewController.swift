@@ -14,24 +14,40 @@ class ContactViewController: UIViewController {
     
     var resultsArray = [Contact]()
     var favouritesResultsArray = [Contact]()
-    
     var sortedResultsArray = [Contact]()
     var sortedFavouritesResultsArray = [Contact]()
-    
+    let detailViewControllerId = "DetailContact"
     let viewCellIdentifier = "viewCell"
+    let favouritesContactsLabel = "Favourites Contacts"
+    let otherContactsLabel = "Other Contacts"
+    let userSmallImage = "UserSmall.png"
     
     @IBOutlet var tableView: UITableView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        updateArrays()
+        tableView.reloadData()
+    }
+    
+    func updateArrays() {
+        UserData.sharedInstance.savedSortedFavouritesResultsArray = UserData.sharedInstance.savedSortedFavouritesResultsArray.sorted(by: { (name1, name2) -> Bool in
+            return name1.name ?? "" < name2.name ?? ""
+        })
+        UserData.sharedInstance.savedSortedResultsArray = UserData.sharedInstance.savedSortedResultsArray.sorted(by: { (name1, name2) -> Bool in
+            return name1.name ?? "" < name2.name ?? ""
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Contacts"
         getData()
-        
     }
     
     func getData() {
-        let finalString = Constants.kSearchContactsApiUrl
         showLoading()
+        let finalString = Constants.kSearchContactsApiUrl
         AF.request(finalString).responseJSON { response in
             switch response.result {
             case .success(_):
@@ -51,6 +67,8 @@ class ContactViewController: UIViewController {
                                 })
                             }
                         }
+                        UserData.sharedInstance.savedSortedFavouritesResultsArray = self.sortedFavouritesResultsArray
+                        UserData.sharedInstance.savedSortedResultsArray = self.sortedResultsArray
                         self.tableView.reloadData()
                     }
                 } catch {
@@ -62,7 +80,7 @@ class ContactViewController: UIViewController {
                 }
             case .failure(let error):
                 self.hideLoading()
-                print(error)
+                self.showAlert(title: nil, message: error.localizedDescription)
             }
         }
     }
@@ -74,37 +92,30 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: viewCellIdentifier, for: indexPath) as! TableViewCell
         
         if indexPath.section == 0 {
-            let data = sortedFavouritesResultsArray[indexPath.row]
-            cell.nameLabel.text = data.name
-            cell.companyLabel.text = data.companyName
-            if let imageURLString = data.smallImageURL {
-                let imageURL = URL(string: imageURLString)
-                cell.userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                cell.userImage.sd_imageIndicator = SDWebImageActivityIndicator.medium
-                cell.userImage.sd_setImage(with: imageURL, completed: nil)
-                cell.userImage.contentMode = .scaleAspectFit
-            } else {
-                cell.userImage?.image = UIImage(named: "UserSmall.png")
-            }
+            let data = UserData.sharedInstance.savedSortedFavouritesResultsArray[indexPath.row]
+            setCellData(cell: cell, data: data)
             cell.favouriteButton.isHidden = false
         } else if indexPath.section == 1 {
-            let data = sortedResultsArray[indexPath.row]
-            cell.nameLabel.text = data.name
-            cell.companyLabel.text = data.companyName
-            if let imageURLString = data.smallImageURL {
-                let imageURL = URL(string: imageURLString)
-                cell.userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                cell.userImage.sd_imageIndicator = SDWebImageActivityIndicator.medium
-                cell.userImage.sd_setImage(with: imageURL, completed: nil)
-                cell.userImage.contentMode = .scaleAspectFit
-            } else {
-                cell.userImage?.image = UIImage(named: "UserSmall.png")
-            }
+            let data = UserData.sharedInstance.savedSortedResultsArray[indexPath.row]
+            setCellData(cell: cell, data: data)
             cell.favouriteButton.isHidden = true
         }
         return cell
     }
     
+    func setCellData(cell: TableViewCell, data: Contact) {
+        cell.nameLabel.text = data.name
+        cell.companyLabel.text = data.companyName
+        if let imageURLString = data.smallImageURL {
+            let imageURL = URL(string: imageURLString)
+            cell.userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+            cell.userImage.sd_imageIndicator = SDWebImageActivityIndicator.medium
+            cell.userImage.sd_setImage(with: imageURL, completed: nil)
+            cell.userImage.contentMode = .scaleAspectFit
+        } else {
+            cell.userImage?.image = UIImage(named: userSmallImage)
+        }
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -112,26 +123,29 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return sortedFavouritesResultsArray.count
+            return UserData.sharedInstance.savedSortedFavouritesResultsArray.count
         } else if section == 1 {
-            return sortedResultsArray.count
+            return UserData.sharedInstance.savedSortedResultsArray.count
         }
         return 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let item = sortedFavouritesResultsArray[indexPath.row]
-            let vc = storyboard?.instantiateViewController(withIdentifier: "DetailContact") as? ContactDetailViewController
-            vc?.contact = item
-            self.navigationController?.pushViewController(vc!, animated: true)
+            let item = UserData.sharedInstance.savedSortedFavouritesResultsArray[indexPath.row]
+            navigateToDetail(item: item, indexPath: indexPath)
         } else if indexPath.section == 1 {
-            let item = sortedResultsArray[indexPath.row]
-            let vc = storyboard?.instantiateViewController(withIdentifier: "DetailContact") as? ContactDetailViewController
-            vc?.contact = item
-            self.navigationController?.pushViewController(vc!, animated: true)
+            let item = UserData.sharedInstance.savedSortedResultsArray[indexPath.row]
+            navigateToDetail(item: item, indexPath: indexPath)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func navigateToDetail(item: Contact, indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: detailViewControllerId) as? ContactDetailViewController
+        vc?.contact = item
+        vc?.indexPath = indexPath
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -140,14 +154,13 @@ extension ContactViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Favourites Contacts"
+            return favouritesContactsLabel
         } else if section == 1 {
-            return "Other Contacts"
+            return otherContactsLabel
         }
         return ""
     }
 }
-
 
 extension ContactViewController {
     

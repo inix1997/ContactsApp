@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public struct Constants {
     static var kSearchContactsApiUrl = "https://s3.amazonaws.com/technical-challenge/v3/contacts.json"
     static var loading = "Loading..."

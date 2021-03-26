@@ -9,9 +9,22 @@ import UIKit
 import SDWebImage
 
 class ContactDetailViewController: UIViewController {
+    
     let viewCellIdentifier = "detailViewCell"
+    let favouriteTrueImage = "FavoriteTrue.png"
+    let favouriteFalseImage = "FavoriteFalse.png"
+    let userLargeImage = "UserLarge.png"
+    let phoneLabel = "PHONE:"
+    let homeLabel = "Home"
+    let mobileLabel = "Mobile"
+    let workLabel = "Work"
+    let addressLabel = "ADDRESS:"
+    let birthdateLabel = "BIRTHDATE:"
+    let emailLabel = "EMAIL:"
     var contact: Contact?
+    var indexPath: IndexPath?
     var array = [Any]()
+    
     @IBOutlet var name: UILabel!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var companyName: UILabel!
@@ -24,15 +37,34 @@ class ContactDetailViewController: UIViewController {
         setupView()
     }
     
+    @IBAction func favouriteContactAction(_ sender: Any) {
+        if contact?.isFavorite == true {
+            if let index = indexPath, let contact = contact {
+                UserData.sharedInstance.savedSortedFavouritesResultsArray.remove(at: index.row)
+                var newContact = contact
+                newContact.isFavorite = false
+                UserData.sharedInstance.savedSortedResultsArray.append(newContact)
+                self.navigationController?.popViewController(animated: true)
+            }
+        } else {
+            if let index = indexPath, let contact = contact {
+                UserData.sharedInstance.savedSortedResultsArray.remove(at: index.row)
+                var newContact = contact
+                newContact.isFavorite = true
+                UserData.sharedInstance.savedSortedFavouritesResultsArray.append(newContact)
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     func setupView() {
         name.text = contact?.name
         companyName.text = contact?.companyName
         if contact?.isFavorite == true {
-            favouriteButton.imageView?.image = UIImage(named: "FavoriteTrue.png")
+            favouriteButton.imageView?.image = UIImage(named: favouriteTrueImage)
         } else {
-            favouriteButton.imageView?.image = UIImage(named: "FavoriteFalse.png")
+            favouriteButton.imageView?.image = UIImage(named: favouriteFalseImage)
         }
-        favouriteButton.isUserInteractionEnabled = false
         loadImage()
     }
     
@@ -44,7 +76,7 @@ class ContactDetailViewController: UIViewController {
             imageView.sd_setImage(with: imageURL, completed: nil)
             imageView.contentMode = .scaleAspectFit
         } else {
-            imageView.image = UIImage(named: "UserLarge.png")
+            imageView.image = UIImage(named: userLargeImage)
         }
     }
 }
@@ -65,32 +97,32 @@ extension ContactDetailViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: viewCellIdentifier, for: indexPath) as! DetailTableViewCell
         if indexPath.section == 0 {
-            cell.typeLabel.text = "PHONE:"
+            cell.typeLabel.text = phoneLabel
             if let homeNumber = contact?.phone?.home {
                 cell.detailLabel.text = "(\(homeNumber.prefix(3))) \(homeNumber.suffix(8))"
             }
-            cell.phoneType.text = "Home"
+            cell.phoneType.text = homeLabel
         } else if indexPath.section == 1 {
-            cell.typeLabel.text = "PHONE:"
+            cell.typeLabel.text = phoneLabel
             if let homeNumber = contact?.phone?.mobile {
                 cell.detailLabel.text = "(\(homeNumber.prefix(3))) \(homeNumber.suffix(8))"
             }
-            cell.phoneType.text = "Mobile"
+            cell.phoneType.text = mobileLabel
         } else if indexPath.section == 2 {
-            cell.typeLabel.text = "PHONE:"
+            cell.typeLabel.text = phoneLabel
             if let homeNumber = contact?.phone?.work {
                 cell.detailLabel.text = "(\(homeNumber.prefix(3))) \(homeNumber.suffix(8))"
             }
-            cell.phoneType.text = "Work"
+            cell.phoneType.text = workLabel
         } else if indexPath.section == 3 {
-            cell.typeLabel.text = "ADDRESS:"
+            cell.typeLabel.text = addressLabel
             if let street = contact?.address?.street, let city = contact?.address?.city, let state = contact?.address?.state, let zipCode = contact?.address?.zipCode, let country = contact?.address?.country {
                 cell.detailLabel.text = "\(street)\n\(city), \(state) \(zipCode), \(country)"
             }
             cell.phoneType.text = ""
             cell.phoneType.isHidden = true
         } else if indexPath.section == 4 {
-            cell.typeLabel.text = "BIRTHDATE"
+            cell.typeLabel.text = birthdateLabel
             let dateFormatterGet = DateFormatter()
             dateFormatterGet.dateFormat = "yyyy-MM-dd"
             let dateFormatterPrint = DateFormatter()
@@ -103,7 +135,7 @@ extension ContactDetailViewController: UITableViewDelegate, UITableViewDataSourc
             cell.phoneType.text = ""
             cell.phoneType.isHidden = true
         } else if indexPath.section == 5 {
-            cell.typeLabel.text = "EMAIL:"
+            cell.typeLabel.text = emailLabel
             cell.detailLabel.text = contact?.emailAddress
             cell.phoneType.text = ""
             cell.phoneType.isHidden = true

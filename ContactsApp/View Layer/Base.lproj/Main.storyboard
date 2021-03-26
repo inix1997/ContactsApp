@@ -213,9 +213,12 @@
                     <navigationItem key="navigationItem" id="Sua-6O-xk4">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Y44-VP-7Vp">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="g1d-c0-aCn">
-                                <rect key="frame" x="320" y="11" width="74" height="22"/>
+                                <rect key="frame" x="374" y="11" width="20" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="FavoriteTrue"/>
+                                <state key="normal" image="FavoriteFalse"/>
+                                <connections>
+                                    <action selector="favouriteContactAction:" destination="YjI-Ke-Osx" eventType="touchUpInside" id="HWi-kf-1cT"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -249,6 +252,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FavoriteFalse" width="20" height="20"/>
         <image name="FavoriteTrue" width="20" height="20"/>
         <image name="UserLarge" width="150" height="150"/>
         <image name="UserSmall" width="60" height="60"/>
